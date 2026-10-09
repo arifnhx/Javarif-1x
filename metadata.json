@@ -1,0 +1,6 @@
+{
+  "name": "Javarif - AI Content Automation Workflows",
+  "description": "Autonomous AI content workflows and omnichannel automation pipeline by Javarif.com. Transform ideas into cross-platform content campaigns with intelligent multi-channel distribution.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

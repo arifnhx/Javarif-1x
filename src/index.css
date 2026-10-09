@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #eeeee8;
+    color: #0d0e10;
+    font-family: 'Funnel Sans', 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: 'Funnel Display', 'Space Grotesk', sans-serif;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+  }
+
+  .font-display {
+    font-family: 'Funnel Display', 'Space Grotesk', sans-serif;
+    letter-spacing: -0.05em;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'Geist Mono', 'JetBrains Mono', monospace;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+/* REACHWISE DESIGN SYSTEM TOKENS
+ * --rw-bone:  #eeeee8 (Base warm bone alabaster canvas)
+ * --rw-ink:   #0d0e10 (Deep ink black)
+ * --rw-brass: #d4ff3a (Electric acid-lime / cyber-chartreuse highlight)
+ * --rw-pine:  #16181b (Deep charcoal card surface)
+ * --rw-fog:   #dcdcd3 (Warm stone hairline borders)
+ * --rw-stone: #75766f (Refined muted stone for captions and stats)
+ * --rw-cloud: #ffffff (Crisp porcelain white)
+ * --rw-night: #08090a (Deep obsidian)
+ */
+
+/* Signature Acid Lime / Brass highlight */
+.text-rw-brass {
+  color: #d4ff3a;
+}
+
+.bg-rw-brass {
+  background-color: #d4ff3a;
+}
+
+.border-rw-brass {
+  border-color: #d4ff3a;
+}
+
+.glow-lime {
+  box-shadow: 0 0 24px rgba(212, 255, 58, 0.40);
+}
+
+.glow-lime-sm {
+  box-shadow: 0 0 12px rgba(212, 255, 58, 0.30);
+}
+
+.glow-lime-pill {
+  box-shadow: 0 0 0 1.5px #d4ff3a;
+}
+
+/* Reachwise Hairline borders */
+.border-rw-fog {
+  border-color: #dcdcd3;
+}
+
+.border-rw-hairline {
+  border-color: rgba(13, 14, 16, 0.08);
+}
+
+.border-rw-dark-hairline {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Subtle Architectural Dot Grid */
+.bg-rw-dots {
+  background-image: radial-gradient(rgba(13, 14, 16, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Subtle Subgrid */
+.bg-rw-subgrid {
+  background-image: 
+    linear-gradient(to right, rgba(13, 14, 16, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 14, 16, 0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Ambient Reachwise Glow Mesh (Subtle Lime + Bone Light Pool) */
+.bg-rw-ambient {
+  background-image: 
+    radial-gradient(ellipse at 50% -5%, rgba(212, 255, 58, 0.12) 0%, rgba(220, 220, 211, 0.25) 40%, transparent 70%),
+    radial-gradient(circle at 85% 15%, rgba(212, 255, 58, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 15% 35%, rgba(212, 255, 58, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 75%, rgba(212, 255, 58, 0.08) 0%, transparent 60%);
+}
+
+/* Tactile Paper Texture */
+.noise-overlay-tactile {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* Reachwise Porcelain Light Card */
+.rw-card {
+  background-color: #ffffff;
+  border: 1px solid #dcdcd3;
+  box-shadow: 
+    0 1px 3px rgba(13, 14, 16, 0.03),
+    0 8px 24px -6px rgba(13, 14, 16, 0.04);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+
+.rw-card:hover {
+  border-color: rgba(13, 14, 16, 0.24);
+  box-shadow: 
+    0 1px 4px rgba(13, 14, 16, 0.04),
+    0 16px 36px -8px rgba(13, 14, 16, 0.07);
+}
+
+/* Reachwise High-Contrast Dark Card */
+.rw-dark-card {
+  background-color: #0d0e10;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 4px 20px -2px rgba(13, 14, 16, 0.35),
+    0 12px 36px -6px rgba(13, 14, 16, 0.45);
+}
+
+/* Micro-animations */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes marqueeSlide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.animate-marquee-slow {
+  display: flex;
+  width: 200%;
+  animation: marqueeSlide 24s linear infinite;
+}
+
+/* Spring interactions */
+.btn-spring {
+  transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.btn-spring:hover {
+  transform: translateY(-2px);
+}
+
+.btn-spring:active {
+  transform: translateY(0.5px) scale(0.98);
+}
