@@ -1,0 +1,14 @@
+{
+  "name": "hormuz-oil-chokepoint",
+  "private": true,
+  "type": "module",
+  "description": "16:9 animated map explainer: why the world's oil depends on the Strait of Hormuz.",
+  "scripts": {
+    "build:geo": "node build-geo.mjs",
+    "render": "node render.mjs"
+  },
+  "devDependencies": {
+    "topojson-client": "3.1.0",
+    "world-atlas": "2.0.2"
+  }
+}
