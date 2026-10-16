@@ -1,0 +1,61 @@
+@font-face { font-family: 'Hand'; src: url('../assets/fonts/caveat-700.woff2') format('woff2'); font-weight: 700; font-display: block; }
+@font-face { font-family: 'InterV'; src: url('../assets/fonts/inter-var.woff2') format('woff2'); font-weight: 100 900; font-display: block; }
+
+:root { --accent: #ffd23f; --danger: #ff5a4a; --ink: #ffffff; }
+
+html, body { margin: 0; height: 100%; background: #0b0f14; color: #e8eef3; font-family: InterV, system-ui, sans-serif; }
+body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+body.rendering { display: block; overflow: hidden; }
+body.rendering #controls { display: none; }
+
+#viewport { position: relative; overflow: hidden; border-radius: 12px; }
+body.rendering #viewport { border-radius: 0; width: 1080px; height: 1920px; }
+#stage { transform-origin: 0 0; }
+
+#controls { display: flex; gap: 10px; align-items: center; width: min(92vw, 520px); font: 600 13px InterV, sans-serif; }
+#controls input { flex: 1; }
+#controls button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #2a3a48; background: #142030; color: inherit; cursor: pointer; }
+
+/* ---- stage ---- */
+.stage { position: relative; overflow: hidden; background: var(--bg); }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vignette { position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 14%),
+    linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 38%),
+    radial-gradient(130% 90% at 50% 45%, rgba(0,0,0,0) 60%, rgba(0,0,0,.35) 100%); }
+.hud { position: absolute; inset: 0; pointer-events: none; }
+.hud-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hud-svg .arrow { fill: none; stroke-width: 7; stroke-linecap: round; filter: drop-shadow(0 3px 6px rgba(0,0,0,.6)); }
+
+.ov { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform, opacity; }
+.ov-label { font-weight: 800; font-size: 54px; color: var(--ink); text-shadow: 0 3px 14px rgba(0,0,0,.75), 0 1px 2px rgba(0,0,0,.8); }
+.hand { font-family: Hand, cursive; font-weight: 700; letter-spacing: .5px; }
+.ov-label.hand { font-weight: 700; line-height: 1; }
+.ov-label .ink { display: inline-block; padding: 0 .1em; }
+.ov-label b { font-weight: 700; }
+
+.ov-pin { width: 0; height: 0; --pin: var(--danger); }
+.ov-pin .dot, .ov-pin .pulse { position: absolute; left: 0; top: 0; border-radius: 50%; }
+.ov-pin .dot { width: 26px; height: 26px; transform: translate(-50%, -50%); background: var(--pin); border: 5px solid #fff; box-shadow: 0 0 22px var(--pin), 0 2px 8px rgba(0,0,0,.6); }
+.ov-pin .pulse { width: 46px; height: 46px; border: 5px solid var(--pin); }
+
+.ov-counter { display: flex; align-items: center; gap: 14px; font-weight: 900; font-size: 84px; color: #fff; text-shadow: 0 3px 14px rgba(0,0,0,.7); }
+.ov-counter .people { width: 120px; height: 52px; fill: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.6)); }
+.ov-counter.box .num { background: var(--accent); color: #111; padding: 2px 22px 4px; border-radius: 12px; text-shadow: none; box-shadow: 0 8px 26px rgba(0,0,0,.45); }
+
+.ov-arcTag { font-weight: 800; font-size: 54px; color: #fff; text-shadow: 0 3px 12px rgba(0,0,0,.8); }
+.ov-arcTag.tag .num { background: rgba(10,20,30,.55); border: 3px solid rgba(255,255,255,.85); padding: 4px 18px; border-radius: 40px; }
+
+.ov-big { text-align: center; }
+.ov-big .big-main { font-weight: 900; font-size: 300px; line-height: .9; letter-spacing: -6px;
+  text-shadow: 0 0 40px currentColor, 0 10px 40px rgba(0,0,0,.6); }
+.ov-big .big-sub { font-family: Hand, cursive; font-size: 96px; color: #fff; margin-top: -10px; text-shadow: 0 4px 16px rgba(0,0,0,.8); }
+
+.ov-orbit { width: 0; height: 0; }
+.orbit-name { position: absolute; left: 0; top: 0; font-size: 64px; color: #fff; text-shadow: 0 3px 12px rgba(0,0,0,.85); }
+
+.caption { position: absolute; left: 50%; top: 69%; transform-origin: 50% 50%; max-width: 900px; text-align: center;
+  font-weight: 700; font-size: 60px; line-height: 1.15; color: #fff; letter-spacing: -.5px;
+  text-shadow: 0 3px 4px rgba(0,0,0,.55), 0 0 22px rgba(0,0,0,.55); white-space: nowrap; }
+.caption em { font-style: normal; color: var(--accent); }

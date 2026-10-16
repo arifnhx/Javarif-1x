@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motion Shorts</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js",
+        "topojson-client": "./node_modules/topojson-client/src/index.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="viewport"><div id="stage"></div></div>
+  <div id="controls">
+    <button id="play">Pause</button>
+    <input id="scrub" type="range" min="0" max="1000" value="0" />
+    <span id="time">0.00s</span>
+  </div>
+  <script type="module">
+    import { Stage } from './src/stage.js';
+
+    // ?episode=tristan  → episodes/tristan.js     ?render=1 → frame-capture mode (no UI, no RAF)
+    const params = new URLSearchParams(location.search);
+    const name = params.get('episode') || 'tristan';
+    const rendering = params.has('render');
+    document.body.classList.toggle('rendering', rendering);
+
+    const ready = (async () => {
+      const ep = (await import(`./episodes/${name}.js`)).default;
+      const stage = await new Stage(document.getElementById('stage'), ep).init();
+      window.__stage = stage;
+      stage.renderAt(0);
+      return { duration: stage.duration, fps: stage.fps };
+    })();
+    window.__ready = ready;
+    window.renderAt = (t) => window.__stage.renderAt(t);
+
+    if (!rendering) {
+      const play = document.getElementById('play'), scrub = document.getElementById('scrub'), time = document.getElementById('time');
+      const fit = () => {
+        const s = Math.min(innerWidth / 1080, (innerHeight - 56) / 1920);
+        document.getElementById('stage').style.transform = `scale(${s})`;
+        document.getElementById('viewport').style.width = 1080 * s + 'px';
+        document.getElementById('viewport').style.height = 1920 * s + 'px';
+      };
+      addEventListener('resize', fit); fit();
+      ready.then(({ duration }) => {
+        let t = 0, playing = true, last = performance.now();
+        play.onclick = () => { playing = !playing; play.textContent = playing ? 'Pause' : 'Play'; last = performance.now(); };
+        scrub.oninput = () => { t = (scrub.value / 1000) * duration; window.renderAt(t); time.textContent = t.toFixed(2) + 's'; };
+        const loop = (now) => {
+          if (playing) {
+            t = (t + (now - last) / 1000) % duration;
+            window.renderAt(t);
+            scrub.value = (t / duration) * 1000;
+            time.textContent = t.toFixed(2) + 's';
+          }
+          last = now;
+          requestAnimationFrame(loop);
+        };
+        requestAnimationFrame(loop);
+      });
+    }
+  </script>
+</body>
+</html>

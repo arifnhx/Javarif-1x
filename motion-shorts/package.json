@@ -1,0 +1,20 @@
+{
+  "name": "motion-shorts",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Three.js map-explainer motion graphics for vertical shorts, with a frame-accurate MP4 renderer",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "render": "node scripts/render.mjs"
+  },
+  "dependencies": {
+    "three": "0.170.0",
+    "three-globe": "2.31.0",
+    "world-atlas": "2.0.2",
+    "topojson-client": "3.1.0"
+  },
+  "devDependencies": {
+    "playwright-core": "1.56.1"
+  }
+}
